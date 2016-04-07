@@ -72,7 +72,10 @@ func (c *ConfigFile) Read(reader io.Reader) (err error) {
 		case l[0] == ';': // comment
 			continue
 
-		case len(l) >= 3 && strings.ToLower(l[0:3]) == "rem": // comment (for windows users)
+		case strings.ToLower(l) == "rem": // comment (for windows users)
+			continue
+
+		case len(l) >= 4 && strings.ToLower(l[0:4]) == "rem ": // comment (for windows users)
 			continue
 
 		case l[0] == '[' && l[len(l)-1] == ']': // new section
